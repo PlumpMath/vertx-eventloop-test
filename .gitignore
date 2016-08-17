@@ -1,0 +1,30 @@
+# Git ignore list for Maven and Gradle projects used in Eclipse and IDEA.
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# Intellij
+.idea/
+*.iml
+*.iws
+
+# Mac
+.DS_Store
+
+# Maven
+log/
+target/
+
+# Gradle
+.gradle/
+build/
+
+# Vert.x
+file-uploads/
+.vertx/
+
+# Node.js
+node_modules/
+
