@@ -10,17 +10,14 @@ import io.vertx.ext.sql.SQLConnection;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-/**
- * @author Nathan Hammond
- */
 public class TestVerticle extends AbstractVerticle {
 
     private static final Logger log = LoggerFactory.getLogger(TestVerticle.class);
 
-    private static final String JDBC_URL = "jdbc:mysql://127.0.0.1/management";
+    private static final String JDBC_URL = "jdbc:mysql://127.0.0.1/DBNAME";
     private static final String JDBC_DRIVER_CLASS = "com.mysql.jdbc.Driver";
-    private static final String JDBC_USER_NAME = "nhammond";
-    private static final String JDBC_PASSWORD = "Think1";
+    private static final String JDBC_USER_NAME = "";
+    private static final String JDBC_PASSWORD = "";
     private static final String MARKER = "marker";
 
     private static AtomicInteger id = new AtomicInteger(0);
@@ -31,6 +28,11 @@ public class TestVerticle extends AbstractVerticle {
         JDBCClient client;
         int verticleId = id.getAndIncrement();
 
+        if (JDBC_USER_NAME.isEmpty()) {
+            log.error("Setup JDBC constants first.");
+            future.fail(new IllegalArgumentException("JDBC constants are not set"));
+            return;
+        }
 
         try {
             JsonObject jdbcConfig = new JsonObject()
